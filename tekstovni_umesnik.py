@@ -8,17 +8,18 @@ import time
 def polog_denarja():
     print('Koliko denarja želite vstaviti v avtomat?')
     denar = input('> ')
-    if model.preveri_ce_je_stevilka(denar) == 'ja':
+    if model.preveri_ce_je_stevilka(denar):
         igralec = model.naredi_igralca(denar)
         return igralec
     else:
         print('Vaša izbira je neveljavna!')
+        print('Vpišite vsoto, ki jo želite položiti.')
         return polog_denarja()
 
 def stava(igralec):
     print('Koliko denarja želite staviti?')
     denar = input('> ')
-    if model.preveri_ce_je_stevilka(denar) == 'ja':
+    if model.preveri_ce_je_stevilka(denar):
         if model.preveri_ce_je_dovolj_denarja(igralec, denar):
             time.sleep(0.5)
             roka = model.nova_roka(denar)
@@ -41,51 +42,57 @@ def zamenjaj_karte(roka):
         print(roka)
     else:
         print('Vaša izbira je neveljavna!')
-        print('Vpišite mesta kart brez presledkov, npr: 23')
+        print('Vpišite mesta kart brez presledkov, npr: 125')
         zamenjaj_karte(roka)
 
 
 def ali_zelite_menjati_karte(roka):
     print('Ali želite zamenjati katero od svojih kart?')
+    print('1) Da')
+    print('2) Ne')
     odgovor = input('> ')
-    odgovor = model.preveri_ja_ali_ne(odgovor)
-    if odgovor == 'ja':
+    odgovor = model.preveri_ce_je_ena_ali_dva(odgovor)
+    if odgovor == 'ena':
         zamenjaj_karte(roka)
-    elif odgovor == 'ne':     
+    elif odgovor == 'dva':     
         pass
     else:
         print('Vaša izbira je neveljavna!')
-        print('Vpišite da ali ne.')
+        print('Vpišite 1 ali 2.')
         ali_zelite_menjati_karte(roka)
 
 def ali_zelite_nadaljevati_igro(igralec):
     print('Ali želite ponovno staviti?')
+    print('1) Da')
+    print('2) Ne')
     odgovor = input('> ')
-    odgovor = model.preveri_ja_ali_ne(odgovor)
-    if odgovor == 'ja':
-        igra(igralec)
-    elif odgovor == 'ne':     
+    odgovor = model.preveri_ce_je_ena_ali_dva(odgovor)
+    if odgovor == 'ena':
+        return igra(igralec)
+    elif odgovor == 'dva':     
         print('Hvala za igro!')
         return False
     else:
         print('Vaša izbira je neveljavna!')
-        print('Vpišite da ali ne.')
-        ali_zelite_nadaljevati_igro(igralec)
+        print('Vpišite 1 ali 2.')
+        return ali_zelite_nadaljevati_igro(igralec)
     
 def zmanjkalo_denarja():
     print('Zmanjkalo vam je denarja.')
     print('Ali želite še kaj denarja naložiti?')
+    print('1) Da')
+    print('2) Ne')
     odgovor = input('> ')
-    odgovor = model.preveri_ja_ali_ne(odgovor)
-    if odgovor == 'ja':
+    odgovor = model.preveri_ce_je_ena_ali_dva(odgovor)
+    if odgovor == 'ena':
         igralec = polog_denarja()
         igra(igralec)
-    elif odgovor == 'ne':    
+    elif odgovor == 'dva':    
         print('Hvala za igro!')
         return False
     else:
         print('Vaša izbira je neveljavna!')
-        print('Vpišite da ali ne.')
+        print('Vpišite 1 ali 2.')
         zmanjkalo_denarja()
 
 
@@ -130,7 +137,7 @@ def zacetni_meni():
 
 
 def intro():
-    print('Pozdravljeni v moji super igri!')
+    print('Pozdravljeni v moji super igri Poker Slots!')
     print('Porabite čim več denarja, ker ga dobim jaz.')
     zacetni_meni()
     igralec = polog_denarja()

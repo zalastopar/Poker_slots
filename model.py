@@ -83,10 +83,10 @@ def preveri_ce_je_stevilka(stevilka):
                 if st_pik == 0:
                     st_pik += 1
                 else:
-                    return 'ne'
+                    return False
             else:
-                return 'ne'
-    return 'ja'
+                return False
+    return True
 
 def preveri_ce_je_dovolj_denarja(igralec, denar):
     if igralec.stanje - float(denar) >= 0:
@@ -111,16 +111,6 @@ def preveri_ce_so_karte_pravilno_vnesene(karte):
         else:
             return False
 
-def preveri_ja_ali_ne(odgovor):
-    odgovor = odgovor.lower()
-    if odgovor == 'ja' or odgovor == 'da':
-        return 'ja'
-    elif odgovor == 'ne':
-        return 'ne'
-    elif len(odgovor) == 0:
-        return 'narobe'
-    else:
-        return 'narobe'
     
 def preveri_par(hand):
     sez_vrednosti = []
@@ -205,7 +195,7 @@ def preveri_poker(hand):
     sez_vrednosti = []
     for el in hand.roka:
         sez_vrednosti += [el.vrednost]
-    return sez_vrednosti.count(sez_vrednosti[0]) == 5 
+    return sez_vrednosti.count(sez_vrednosti[0]) == 4 
 
 def preveri_barvno_lestvico(hand):
     return preveri_barvo(hand) and preveri_lestvico(hand)
