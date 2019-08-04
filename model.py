@@ -93,17 +93,17 @@ def preveri_ce_je_stevilka(stevilka):
     return True
 
 def preveri_ce_je_dovolj_denarja(igralec, denar):
-    if igralec.stanje - float(denar) >= 0:
+    if igralec.stanje - denar >= 0:
         return True
     else:
         return False
 
 def naredi_igralca(denar):
-    igralec = Igralec(float(denar))
+    igralec = Igralec(denar)
     return igralec
 
 def nova_roka(denar):
-    roka = Hand(float(denar))
+    roka = Hand(denar)
     return roka
 
 def preveri_ce_so_karte_pravilno_vnesene(karte):

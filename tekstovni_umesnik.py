@@ -20,11 +20,15 @@ def stava(igralec):
     print('Koliko denarja želite staviti?')
     denar = input('> ')
     if model.preveri_ce_je_stevilka(denar):
-        if model.preveri_ce_je_dovolj_denarja(igralec, denar):
-            time.sleep(0.5)
+        denar = float(denar)
+        if denar == 0:
+            print('Nič niste stavili!')
+            return ali_zelite_nadaljevati_igro(igralec)
+        elif model.preveri_ce_je_dovolj_denarja(igralec, denar):
+            time.sleep(0.7)
             roka = model.nova_roka(denar)
             return roka
-        else: 
+        else:
             print('Na vašem računu ni dovolj denarja!')
             return stava(igralec)
     else:
@@ -38,7 +42,7 @@ def zamenjaj_karte(roka):
     if model.preveri_ce_so_karte_pravilno_vnesene(pozicija):
         roka = model.izloci_karte(roka, pozicija)
         model.dodaj_karte(roka)
-        time.sleep(0.5)
+        time.sleep(0.7)
         print(roka)
     else:
         print('Vaša izbira je neveljavna!')

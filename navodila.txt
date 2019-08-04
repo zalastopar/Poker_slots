@@ -17,5 +17,5 @@ Znesek pa se nato prišteje igralčevemu stanju.
     full house (en par in en tris)- 8x
     poker (štiri iste vrednosti)- 25x
     barvna lestvica (lestvica, kjer imajo vse karte isto barvo)- 50x
-    royal flush (barvna lestvica od 10 do A) - 250x
+    royal flush (barvna lestvica od T do A) - 250x
 Če karte ustrezajo večim kombinacijam, se šteje le tista, ki prinese največ dobička. 
