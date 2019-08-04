@@ -59,7 +59,11 @@ class Hand:
 
 def izloci_karte(hand, pozicija):
     roka = hand.roka
-    for el in pozicija[::-1]:
+    pozicija1 = []
+    for el in pozicija:
+        pozicija1 += [el]
+    pozicija1 = sorted(pozicija1)
+    for el in pozicija1[::-1]:
         del roka[int(el) -  1]
     hand.roka = roka
     return hand
