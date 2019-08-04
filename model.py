@@ -56,6 +56,18 @@ class Hand:
             tekst += ' ' +str(el)
         return 'Vaše karte so:' + tekst 
 
+    def pridobi_vrednosti(self):
+        sez_vrednosti = []
+        for el in self.roka:
+            sez_vrednosti.append(el.vrednost)
+        return sez_vrednosti
+
+    def pridobi_barve(self):
+        sez_barv = []
+        for el in self.roka:
+            sez_barv.append(el.barva)
+        return sez_barv
+
 
 def izloci_karte(hand, pozicija):
     roka = hand.roka
@@ -117,9 +129,7 @@ def preveri_ce_so_karte_pravilno_vnesene(karte):
 
     
 def preveri_par(hand):
-    sez_vrednosti = []
-    for el in hand.roka:
-        sez_vrednosti += [el.vrednost]
+    sez_vrednosti = hand.pridobi_vrednosti()
     for vr in sez_vrednosti:
         if sez_vrednosti.count(vr) == 2 and vr in 'JQKA':
             return True
@@ -127,20 +137,15 @@ def preveri_par(hand):
 
 
 def preveri_dva_para(hand):
-    sez_vrednosti = []
+    sez_vrednosti = hand.pridobi_vrednosti()
     st_parov = 0
-    for el in hand.roka:
-        sez_vrednosti += [el.vrednost]
     for el in sez_vrednosti:
-        st = sez_vrednosti.count(el)
-        if st == 2:
+        if sez_vrednosti.count(el) == 2:
             st_parov += 1
     return (st_parov / 2) == 2
     
 def preveri_tris(hand):
-    sez_vrednosti = []
-    for el in hand.roka:
-        sez_vrednosti += [el.vrednost]
+    sez_vrednosti = hand.pridobi_vrednosti()
     for vr in sez_vrednosti:
         if sez_vrednosti.count(vr) == 3:
             return True
@@ -163,51 +168,41 @@ def spremeni_slikice_v_stevilke(sez):
 def razvrsti_po_velikosti(sez):
     nov_sez = []
     for el in sez:
-        nov_sez += [int(el)]
+        nov_sez.append(int(el))
     return sorted(nov_sez)
 
 def preveri_lestvico(hand):
-    sez_vrednosti = []
-    for el in hand.roka:
-        sez_vrednosti += [el.vrednost]
-    if 'A' in sez_vrednosti:
-        if '2' in sez_vrednosti and '3' in sez_vrednosti and '4' in sez_vrednosti and '5' in sez_vrednosti:
-            return True  
+    sez_vrednosti = hand.pridobi_vrednosti()
     sez_vrednosti = spremeni_slikice_v_stevilke(sez_vrednosti)
     sez_vrednosti = razvrsti_po_velikosti(sez_vrednosti)
-    zacetek = int(sez_vrednosti[0])
-    return (zacetek + 1) in sez_vrednosti and (zacetek + 2) in sez_vrednosti and (zacetek + 3) in sez_vrednosti and (zacetek + 4) in sez_vrednosti
-
+    i = 0
+    for el in sez_vrednosti:
+        if sez_vrednosti[0] + i != el:
+            return sez_vrednosti == [2, 3, 4, 5, 14]
+        i += 1
+    return True
 
 
 def preveri_barvo(hand):
-    sez_barv = []
-    for el in hand.roka:
-        sez_barv += [el.barva]
+    sez_barv = hand.pridobi_barve()
     return sez_barv.count(sez_barv[0]) == 5 
 
 def preveri_full_house(hand):
-    sez_vrednosti = []
-    for el in hand.roka:
-        sez_vrednosti += [el.vrednost]
+    sez_vrednosti = hand.pridobi_vrednosti()
     for vr in sez_vrednosti:
         if str(sez_vrednosti.count(vr)) not in '23':
             return False
     return True
 
 def preveri_poker(hand):
-    sez_vrednosti = []
-    for el in hand.roka:
-        sez_vrednosti += [el.vrednost]
+    sez_vrednosti = hand.pridobi_vrednosti()
     return sez_vrednosti.count(sez_vrednosti[0]) == 4 
 
 def preveri_barvno_lestvico(hand):
     return preveri_barvo(hand) and preveri_lestvico(hand)
 
 def preveri_royal_flush(hand):
-    sez_vrednosti = []
-    for el in hand.roka:
-        sez_vrednosti += [el.vrednost]
+    sez_vrednosti = hand.pridobi_vrednosti()
     return preveri_barvo(hand) and 'T' in sez_vrednosti and 'J' in sez_vrednosti and 'Q' in sez_vrednosti and 'K' in sez_vrednosti and 'A' in sez_vrednosti
     
 
