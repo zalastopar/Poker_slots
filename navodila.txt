@@ -1,9 +1,9 @@
 Kratka pravila:
 Poker Slots je igra na srečo, ki se v igralnicah igra na igralnem avtomatu. 
 Igralec poljubno vsoto vstavi v avtomat. Pred vsakim mešanjem izbere izbere vsoto, ki jo želi staviti.
-Na začetku dobi 5 kart, nato pa lahko zamenja tiste, ki mu ne odgovarjajo. 
-Zamenja lahko poljubno kart, vendar ima le eno ima priložnost zamenjave.
-Nato računalnik na podlagi igralčevih kart določi bonus, ki se doda na njegovo stanje.
+Po stavi dobi 5 nakjučnih kart, nato pa lahko zamenja tiste, ki mu ne odgovarjajo. 
+Zamenja lahko poljubno število kart, vendar to lahko stori le enkrat na mešanje.
+Nato računalnik na podlagi igralčevih kart določi bonus, ki se prišteje njegovemu stanju.
 
 Določitev bonusa:
 Za določene kombinacije igralčevih kart, se igralčeva začetna stava pomnoži s številom, ki je odvisen od posamezne kombinacije.
@@ -17,4 +17,5 @@ Znesek pa se nato prišteje igralčevemu stanju.
     poker (štiri iste vrednosti)- 25x
     barvna lestvica (lestvica, kjer imajo vse karte isto barvo)- 50x
     royal flush (barvna lestvica od 10 do A) - 250x
+Če karte ustrezajo večim kombinacijam, se šteje le tista, ki prinese največ dobička. 
 
