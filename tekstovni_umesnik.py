@@ -6,7 +6,7 @@ import time
 
 
 def polog_denarja():
-    print('Koliko denarja želite položiti za mizo?')
+    print('Koliko denarja želite vstaviti v avtomat?')
     denar = input('> ')
     if model.preveri_ce_je_stevilka(denar) == 'ja':
         igralec = model.naredi_igralca(denar)
@@ -20,6 +20,7 @@ def stava(igralec):
     denar = input('> ')
     if model.preveri_ce_je_stevilka(denar) == 'ja':
         if model.preveri_ce_je_dovolj_denarja(igralec, denar):
+            time.sleep(0.5)
             roka = model.nova_roka(denar)
             return roka
         else: 
@@ -36,9 +37,11 @@ def zamenjaj_karte(roka):
     if model.preveri_ce_so_karte_pravilno_vnesene(pozicija):
         roka = model.izloci_karte(roka, pozicija)
         model.dodaj_karte(roka)
+        time.sleep(0.5)
         print(roka)
     else:
         print('Vaša izbira je neveljavna!')
+        print('Vpišite mesta kart brez presledkov, npr: 23')
         zamenjaj_karte(roka)
 
 
@@ -52,6 +55,7 @@ def ali_zelite_menjati_karte(roka):
         pass
     else:
         print('Vaša izbira je neveljavna!')
+        print('Vpišite da ali ne.')
         ali_zelite_menjati_karte(roka)
 
 def ali_zelite_nadaljevati_igro(igralec):
@@ -65,6 +69,7 @@ def ali_zelite_nadaljevati_igro(igralec):
         return False
     else:
         print('Vaša izbira je neveljavna!')
+        print('Vpišite da ali ne.')
         ali_zelite_nadaljevati_igro(igralec)
     
 def zmanjkalo_denarja():
@@ -80,6 +85,7 @@ def zmanjkalo_denarja():
         return False
     else:
         print('Vaša izbira je neveljavna!')
+        print('Vpišite da ali ne.')
         zmanjkalo_denarja()
 
 
@@ -88,7 +94,7 @@ def igra(igralec):
     print(roka)
     ali_zelite_menjati_karte(roka)
     bonus = model.doloci_bonus(roka)
-    print('Vaše karte so vam pridesle ' + str(bonus) + ' €')
+    print('Vaše karte so vam prinesle ' + str(bonus) + ' €')
     model.spremeni_stanje(igralec, roka, bonus)
     print(igralec)
     if model.preveri_koliko_denarja(igralec):
@@ -118,25 +124,34 @@ def zacetni_meni():
         pass
     else:
         print('Vaš odgovor je neveljaven!')
+        print('Vpišite 1 ali 2')
         zacetni_meni()
     
 
 
 def intro():
-    print('Pozdravljeni v moji bedni igri!')
+    print('Pozdravljeni v moji super igri!')
     print('Porabite čim več denarja, ker ga dobim jaz.')
     zacetni_meni()
     igralec = polog_denarja()
+    if model.preveri_koliko_denarja(igralec):
+        zmanjkalo_denarja()
+        return False
+    else:
+        pass
     return igralec
     
 
 
 def main():
     igralec = intro()
-    while True:
-        if not igra(igralec):
-            break
-        else:
-            continue
+    if not igralec:
+        pass
+    else:
+        while True:
+            if not igra(igralec):
+                break
+            else:
+                continue
 
 main()

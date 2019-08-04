@@ -14,6 +14,7 @@ def spremeni_stanje(igralec, hand, bonus):
         igralec.stanje -= hand.stava
     else:
         igralec.stanje += bonus
+        igralec.stanje -= hand.stava
 
 class Karta:
 
@@ -27,11 +28,15 @@ class Karta:
     def __repr__(self):
         return '{0}{1}'.format(self.vrednost, self.barva)
 
+    def __eq__(self, other):
+        return self.vrednost == other.vrednost and self.barva == other.barva
+
 
 def naredi_karto():
     barve = ['C', 'D', 'H', 'S']
     vrednosti = ['2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A']
     return Karta(random.choice(vrednosti), random.choice(barve))
+
 
 class Hand:
 
@@ -171,10 +176,15 @@ def preveri_lestvico(hand):
     sez_vrednosti = []
     for el in hand.roka:
         sez_vrednosti += [el.vrednost]
+    if 'A' in sez_vrednosti:
+        if '2' in sez_vrednosti and '3' in sez_vrednosti and '4' in sez_vrednosti and '5' in sez_vrednosti:
+            return True  
     sez_vrednosti = spremeni_slikice_v_stevilke(sez_vrednosti)
     sez_vrednosti = razvrsti_po_velikosti(sez_vrednosti)
     zacetek = int(sez_vrednosti[0])
     return (zacetek + 1) in sez_vrednosti and (zacetek + 2) in sez_vrednosti and (zacetek + 3) in sez_vrednosti and (zacetek + 4) in sez_vrednosti
+
+
 
 def preveri_barvo(hand):
     sez_barv = []
@@ -209,26 +219,27 @@ def preveri_royal_flush(hand):
 
 def doloci_bonus(hand):
     stava = hand.stava
-    if preveri_par(hand):
-        return stava
-    elif preveri_dva_para(hand):
-        return stava * 2
-    elif preveri_tris(hand):
-        return stava * 3
-    elif preveri_lestvico(hand):
-        return stava * 4
-    elif preveri_barvo(hand):
-        return stava * 5
-    elif preveri_full_house(hand):
-        return stava * 8
-    elif preveri_poker(hand):
-        return stava * 25
+    if preveri_royal_flush(hand):
+        return stava * 250
     elif preveri_barvno_lestvico(hand):
         return stava * 50
-    elif preveri_royal_flush(hand):
-        return stava * 250
+    elif preveri_poker(hand):
+        return stava * 25
+    elif preveri_full_house(hand):
+        return stava * 8
+    elif preveri_barvo(hand):
+        return stava * 5
+    elif preveri_lestvico(hand):
+        return stava * 4
+    elif preveri_tris(hand):
+        return stava * 3
+    elif preveri_dva_para(hand):
+        return stava * 2
+    elif preveri_par(hand):
+        return stava
     else:
         return 0
+
 
 def preveri_ce_je_ena_ali_dva(odgovor):
     if odgovor == '1':
