@@ -73,7 +73,10 @@ def izloci_karte(hand, pozicija):
     roka = hand.roka
     pozicija1 = []
     for el in pozicija:
-        pozicija1 += [el]
+        if el == ' ':
+            pass
+        else:
+            pozicija1 += [el]
     pozicija1 = sorted(pozicija1)
     for el in pozicija1[::-1]:
         del roka[int(el) -  1]
@@ -92,7 +95,9 @@ def preveri_ce_je_stevilka(stevilka):
     if len(stevilka) == 0:
         return False
     for el in stevilka:
-        if el in '1234567890':
+        if el == ' ':
+            return False
+        elif el in '1234567890':
             pass
         else:
             if el == '.':
@@ -122,7 +127,9 @@ def preveri_ce_so_karte_pravilno_vnesene(karte):
     if len(karte) == 0:
         return False
     for el in karte:
-        if el in '12345' and karte.count(el) == 1:
+        if el == ' ':
+            return False
+        elif el in '12345' and karte.count(el) == 1:
             return True
         else:
             return False

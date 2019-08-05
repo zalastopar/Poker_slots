@@ -9,6 +9,7 @@ def polog_denarja():
     print('Koliko denarja želite vstaviti v avtomat?')
     denar = input('> ')
     if model.preveri_ce_je_stevilka(denar):
+        denar = float(denar)
         igralec = model.naredi_igralca(denar)
         return igralec
     else:
@@ -44,6 +45,7 @@ def zamenjaj_karte(roka):
         model.dodaj_karte(roka)
         time.sleep(0.7)
         print(roka)
+
     else:
         print('Vaša izbira je neveljavna!')
         print('Vpišite mesta kart brez presledkov, npr: 125')
@@ -152,7 +154,6 @@ def intro():
         pass
     return igralec
     
-
 
 def main():
     igralec = intro()
