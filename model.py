@@ -8,6 +8,9 @@ class Igralec:
     def __str__(self):
         return 'Vaše stanje je {0} €'.format(self.stanje)
 
+    def __repr__(self):
+        return 'Vaše stanje je {0} €'.format(self.stanje)
+
 
 def spremeni_stanje(igralec, hand, bonus):
     if bonus == 0:
@@ -69,26 +72,26 @@ class Hand:
         return sez_barv
 
 
-def izloci_karte(hand, pozicija):
-    roka = hand.roka
-    pozicija1 = []
-    for el in pozicija:
-        if el == ' ':
-            pass
-        else:
-            pozicija1 += [el]
-    pozicija1 = sorted(pozicija1)
-    for el in pozicija1[::-1]:
-        del roka[int(el) -  1]
-    hand.roka = roka
-    return hand
+    def izloci_karte(self, pozicija):
+        roka = self.roka
+        pozicija1 = []
+        for el in pozicija:
+            if el == ' ':
+                pass
+            else:
+                pozicija1 += [el]
+        pozicija1 = sorted(pozicija1)
+        for el in pozicija1[::-1]:
+            del roka[int(el) -  1]
+        self.roka = roka
+        return self
 
-def dodaj_karte(hand):
-    while len(hand.roka) < 5:
-        karta = naredi_karto()
-        if karta not in hand.roka:
-            hand.roka += [karta]
-    return hand
+    def dodaj_karte(self):
+        while len(self.roka) < 5:
+            karta = naredi_karto()
+            if karta not in self.roka:
+                self.roka += [karta]
+        return self
 
 def preveri_ce_je_stevilka(stevilka):
     st_pik = 0

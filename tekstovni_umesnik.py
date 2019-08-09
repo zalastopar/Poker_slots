@@ -38,17 +38,18 @@ def stava(igralec):
 
 def zamenjaj_karte(roka):
     print('Zapišite mesta kart, ki jih želite zamenjati!')
-    print('Zapišite jih, kot število.')
+    print('Zapišite jih brez vejic.')
     pozicija = input('> ')
     if model.preveri_ce_so_karte_pravilno_vnesene(pozicija):
-        roka = model.izloci_karte(roka, pozicija)
-        model.dodaj_karte(roka)
+        roka = roka.izloci_karte(pozicija)
+        roka.dodaj_karte()
         time.sleep(0.7)
         print(roka)
 
     else:
         print('Vaša izbira je neveljavna!')
-        print('Vpišite mesta kart brez presledkov, npr: 125')
+        print('Vpišite mesta kart, kot kaže primer.')
+        print('Primer: 1 4 5')
         zamenjaj_karte(roka)
 
 

@@ -1,0 +1,9 @@
+<html>
+    <head>
+        <title>Poker Slots</title>
+    </head>
+    <body>
+         <h1>Pozdravljeni v moji superi igri!</h1>
+         <h2>Porabite čim več denarja, ker ga dobim jaz.</h2>
+    </body>
+</html>
