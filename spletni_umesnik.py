@@ -15,7 +15,7 @@ def naprej():
 @bottle.post('/naprej1/')
 def prvi_meni():
     odgovor = bottle.request.forms['glas1']
-    if odgovor == 'da':
+    if odgovor == 'Moram pokukati v navodila':
         return bottle.template('navodila.tpl')
     else:
         bottle.redirect('/polozi_denar/')

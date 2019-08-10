@@ -16,15 +16,11 @@
             <div class="content">
                 <form action="/naprej1/" method="POST">
             <h1>
-                <input type="radio" name="glas1" value="da">
-                    Moram pokukati v navodila
+                <input class="button" type="submit" name="glas1" value="Moram pokukati v navodila">
             </h1>
             <h1>
-                <input type="radio" name="glas1" value="ne">
-                    Želim igrati
-            </h1>
-            <h1>
-                <input class="button" type="submit" value="Sprejmi odločitev">
+                <input class="button" type="submit" name="glas1" value="Želim igrati">
+                  
             </h1>
         </form>
             </div>
