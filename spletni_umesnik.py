@@ -8,6 +8,9 @@ igralec = Igralec(0)
 def pozdrav():
     return bottle.template('naslovna_stran.tpl')
 
+@bottle.post('/naprej/')
+def naprej():
+    return bottle.template('prvo.tpl')
 
 @bottle.post('/naprej1/')
 def prvi_meni():
@@ -49,6 +52,8 @@ def preveri():
             return bottle.template('stava0.tpl')
         elif model.preveri_ce_je_dovolj_denarja(igralec, stava):
             igralec.stava = stava
+            roka = model.nova_roka(stava)
+            igralec.roka = roka
             return bottle.redirect('/nova_roka/')
         else:
             return bottle.template('napacna_stava.tpl')
@@ -57,8 +62,7 @@ def preveri():
 
 @bottle.get('/nova_roka/')
 def nova_roka():
-    roka = model.nova_roka(igralec.stava)
-    igralec.roka = roka
+    roka = igralec.roka
     return bottle.template('prikazi_karte.tpl', roka = roka.roka)
 
 @bottle.post('/preveri_karte/')

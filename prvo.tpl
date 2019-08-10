@@ -1,5 +1,4 @@
-%rebase('osnova.tpl')
-
+% rebase('osnova.tpl')
 
 <div class="tile is-ancestor">
   <div class="tile is-vertical is-8">
@@ -15,14 +14,19 @@
       <div class="tile is-parent">
         <article class="tile is-child notification is-danger">
             <div class="content">
-                <form action="/deposit/" method="post">
-                    <div class="field">
-                    <div class="control">
-                        <h1>Koliko evrov želite položiti na svoj račun?</h1>
-                        <input class="input is-danger" name="deposit" type="text" placeholder="Polog">
-                    </div>
-                    </div>
-                </form>
+                <form action="/naprej1/" method="POST">
+            <h1>
+                <input type="radio" name="glas1" value="da">
+                    Moram pokukati v navodila
+            </h1>
+            <h1>
+                <input type="radio" name="glas1" value="ne">
+                    Želim igrati
+            </h1>
+            <h1>
+                <input class="button" type="submit" value="Sprejmi odločitev">
+            </h1>
+        </form>
             </div>
         </article>
       </div>
