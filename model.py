@@ -1,23 +1,6 @@
 import random
 
-class Igralec:
 
-    def __init__(self, deposit):
-        self.stanje = deposit
-
-    def __str__(self):
-        return 'Vaše stanje je {0} €'.format(self.stanje)
-
-    def __repr__(self):
-        return 'Vaše stanje je {0} €'.format(self.stanje)
-
-
-def spremeni_stanje(igralec, hand, bonus):
-    if bonus == 0:
-        igralec.stanje -= hand.stava
-    else:
-        igralec.stanje += bonus
-        igralec.stanje -= hand.stava
 
 class Karta:
 
@@ -35,6 +18,7 @@ class Karta:
         return self.vrednost == other.vrednost and self.barva == other.barva
 
 
+
 def naredi_karto():
     barve = ['C', 'D', 'H', 'S']
     vrednosti = ['2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A']
@@ -50,10 +34,16 @@ class Hand:
             if karta not in roka:
                 roka += [karta]
         self.roka = roka
-        self.stava = stava
+        self.stava = float(stava)
 
         
     def __str__(self):
+        tekst = ''
+        for el in self.roka:
+            tekst += ' ' +str(el)
+        return 'Vaše karte so:' + tekst 
+
+    def __repr__(self):
         tekst = ''
         for el in self.roka:
             tekst += ' ' +str(el)
@@ -72,9 +62,10 @@ class Hand:
         return sez_barv
 
 
-    def izloci_karte(self, pozicija):
+    def izloci_in_dodaj_karte(self, pozicija):
         roka = self.roka
         pozicija1 = []
+        stare_karte = []
         for el in pozicija:
             if el == ' ':
                 pass
@@ -82,16 +73,35 @@ class Hand:
                 pozicija1 += [el]
         pozicija1 = sorted(pozicija1)
         for el in pozicija1[::-1]:
+            stare_karte.append(roka[int(el) -  1])
             del roka[int(el) -  1]
         self.roka = roka
-        return self
-
-    def dodaj_karte(self):
         while len(self.roka) < 5:
             karta = naredi_karto()
-            if karta not in self.roka:
+            if karta not in self.roka and karta not in stare_karte:
                 self.roka += [karta]
         return self
+
+class Igralec:
+
+    def __init__(self, deposit):
+        self.stanje = deposit
+        self.stava = 0
+        self.roka = Hand(self.stava)
+
+    def __str__(self):
+        return 'Vaše stanje je {0} €'.format(self.stanje)
+
+    def __repr__(self):
+        return 'Vaše stanje je {0} €'.format(self.stanje)
+
+
+def spremeni_stanje(igralec, hand, bonus):
+    if bonus == 0:
+        igralec.stanje -= hand.stava
+    else:
+        igralec.stanje += bonus
+        igralec.stanje -= hand.stava
 
 def preveri_ce_je_stevilka(stevilka):
     st_pik = 0
@@ -133,9 +143,10 @@ def preveri_ce_so_karte_pravilno_vnesene(karte):
         if el == ' ':
             return False
         elif el in '12345' and karte.count(el) == 1:
-            return True
+            continue
         else:
             return False
+    return True
 
     
 def preveri_par(hand):

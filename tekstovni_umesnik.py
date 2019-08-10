@@ -27,6 +27,7 @@ def stava(igralec):
             return ali_zelite_nadaljevati_igro(igralec)
         elif model.preveri_ce_je_dovolj_denarja(igralec, denar):
             time.sleep(0.7)
+            igralec.stanje = denar
             roka = model.nova_roka(denar)
             return roka
         else:
@@ -41,8 +42,7 @@ def zamenjaj_karte(roka):
     print('Zapišite jih brez vejic.')
     pozicija = input('> ')
     if model.preveri_ce_so_karte_pravilno_vnesene(pozicija):
-        roka = roka.izloci_karte(pozicija)
-        roka.dodaj_karte()
+        roka = roka.izloci_in_dodaj_karte(pozicija)
         time.sleep(0.7)
         print(roka)
 
