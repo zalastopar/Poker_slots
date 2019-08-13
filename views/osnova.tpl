@@ -7,7 +7,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
   </head>
-  <body>
+  <body align="center">
+    <div class="tile is-parent">
+  <article class="tile is-child notification is-danger">
+    <div class="content">
     {{!base}}
+    </div>            
+  </article>
+</div>
   </body>
 </html>

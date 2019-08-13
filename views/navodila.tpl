@@ -1,4 +1,13 @@
-%rebase('osnova.tpl')
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Poker Slots</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+  </head>
+  <body>
 
 
 <div class="tile is-ancestor">
@@ -9,7 +18,6 @@
           <h1 class="title">Kratka pravila</h1>
             <p>
                 Poker Slots je igra na srečo, ki se v igralnicah igra na igralnem avtomatu.
-                Znana je tudi kot Jacks or Better. 
                 Igralec poljubno vsoto vstavi v avtomat, ki se naloži na njegov račun. 
                 Pred vsakim mešanjem izbere vsoto, ki jo želi staviti. Stava pa ne more biti višja od vsote na igralčevem računu.
                 Po stavi dobi 5 nakjučnih kart, nato pa lahko zamenja tiste, ki mu ne odgovarjajo. 
@@ -20,8 +28,8 @@
       </div>
       <div class="tile is-parent">
         <article class="tile is-child box">
-            <figure class="image is-600x500">
-                <img src="https://cardplayerlifestyle.com/wp-content/uploads/2013/12/poker-and-slots1.jpg">
+            <figure>
+                <img src="http://superluckycasino.com/wp-content/uploads/2019/03/VPH_logo.png">
             </figure>
         </article>
       </div>
@@ -32,7 +40,7 @@
 <section class="hero">
   <div class="hero-body">
     <div class="container">
-         <form action="/">
+         <form action="/naprej/" method="post">
             <h3>
               <input class="button" type="submit" value="NAZAJ">
             </h3>
@@ -65,5 +73,6 @@
   </div>
 </div>
 
-
+</body>
+</html>
 

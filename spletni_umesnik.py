@@ -18,7 +18,7 @@ def prvi_meni():
     if odgovor == 'Moram pokukati v navodila':
         return bottle.template('navodila.tpl')
     else:
-        bottle.redirect('/polozi_denar/')
+        return bottle.redirect('/polozi_denar/')
 
 
 @bottle.get('/polozi_denar/')
@@ -68,7 +68,7 @@ def nova_roka():
 @bottle.post('/preveri_karte/')
 def preveri_karte():
     odgovor = bottle.request.forms['glas2']
-    if odgovor == 'da':
+    if odgovor == 'Ja':
         return bottle.redirect('/menjava/')
     else:
         return bottle.redirect('/nove_karte/')
@@ -107,17 +107,23 @@ def vprasaj():
 @bottle.post('/odlocitev/')
 def odlocitev():
     odgovor = bottle.request.forms['glas3']
-    if odgovor == 'da':
+    if odgovor == 'Ja':
         return bottle.redirect('/stavi/')
-    elif odgovor == 'ne':
-        return bottle.redirect('/konec/')        
     else:
+        return bottle.redirect('/konec/')         
+
+@bottle.post('/odlocitev1/')
+def odlocitev():
+    odgovor = bottle.request.forms['glas4']
+    if odgovor == 'Ja':
         return bottle.redirect('/polozi_denar/')
+    else:
+        return bottle.redirect('/konec/') 
 
 @bottle.post('/skoraj/')
 def skoraj():
     odgovor = bottle.request.forms['konec']
-    if odgovor == 'ne':
+    if odgovor == 'Ne':
         return bottle.redirect('/konec/')       
     else:
         return bottle.redirect('/stavi/')
