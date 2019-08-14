@@ -134,9 +134,4 @@ def konec():
     return bottle.template('konec.tpl', stanje = igralec.stanje)
 
 
-
-    
-
-
-
 bottle.run(debug = True, reloader = True)

@@ -1,5 +1,5 @@
-%rebase('osnova.tpl')
 %from model import Karta
+%rebase('osnova_karte.tpl')
 
 <form action="/preveri_karte/" method="post">
 <h1>Vaše karte so:</h1>
@@ -13,3 +13,4 @@
     <input class="button" type="submit" name="glas2" value="Ja">
     <input class="button" type="submit" name="glas2" value="Ne">
 </form>
+

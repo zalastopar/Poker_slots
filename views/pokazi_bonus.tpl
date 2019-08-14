@@ -1,4 +1,4 @@
-%rebase('osnova.tpl')
+%rebase('osnova_karte.tpl')
 
 <h1>Vaše karte so:</h1>
 %for el in roka: 

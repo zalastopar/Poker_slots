@@ -1,4 +1,4 @@
-%rebase('osnova.tpl')
+%rebase('osnova_karte.tpl')
 
 <form action="/zamenjaj/ "method="post">
     <h1>Vaše karte so:</h1>
