@@ -6,9 +6,10 @@ Po stavi dobi 5 nakjučnih kart, nato pa lahko zamenja tiste, ki mu ne odgovarja
 Zamenja lahko poljubno število kart, vendar to lahko stori le enkrat na mešanje.
 Nato računalnik na podlagi igralčevih kart določi bonus, ki se prišteje njegovemu stanju.
 
-Določitev bonusa:
+Določitev dobička po posamezni stavi:
 Za določene kombinacije igralčevih kart, se igralčeva začetna stava pomnoži s številom, ki je odvisen od posamezne kombinacije.
-Znesek pa se nato prišteje igralčevemu stanju.
+Znesek pa se nato prišteje igralčevemu stanju. Če karte igralcu ne prinesejo nobene od spodaj naštetih kombinacij, /n
+se njegovemu stanju odšteje vrednost stave.
     par (samo za par Jackov ali boljše) - 1x
     dva para - 2x
     tris (tri enake vrednosti)- 3x
@@ -16,6 +17,6 @@ Znesek pa se nato prišteje igralčevemu stanju.
     barva (vse karte iste barva)- 5x
     full house (en par in en tris)- 8x
     poker (štiri iste vrednosti)- 25x
-    barvna lestvica (lestvica, kjer imajo vse karte isto barvo)- 50x
+    barvna lestvica - 50x
     royal flush (barvna lestvica od T do A) - 250x
 Če karte ustrezajo večim kombinacijam, se šteje le tista, ki prinese največ dobička. 

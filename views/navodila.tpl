@@ -54,10 +54,10 @@
   </div>
   <div class="tile is-parent">
     <article class="tile is-child box">
-        <h1 class="subtitle">Določitev bonusa</h1>
+        <h1 class="subtitle">Določitev dobička po posamezni stavi</h1>
             <p>
-                Za določene kombinacije igralčevih kart, se igralčeva začetna stava pomnoži s številom, ki je odvisen od posamezne kombinacije.
-                Znesek pa se nato prišteje igralčevemu stanju.
+                Za določene kombinacije igralčevih kart, se igralčeva začetna stava pomnoži s številom na desni, ki je odvisen od posamezne kombinacije.
+                Znesek pa se nato prišteje igralčevemu stanju. Če karte igralcu ne prinesejo nobene od spodaj naštetih kombinacij, se njegovemu stanju odšteje vrednost stave.
                 <li>par (samo za par Jackov ali boljše) - 1x</li>
                 <li>dva para - 2x</li>
                 <li>tris (tri enake vrednosti)- 3x</li>
@@ -65,7 +65,7 @@
                 <li>barva (vse karte iste barva)- 5x</li>
                 <li>full house (en par in en tris)- 8x</li>
                 <li>poker (štiri iste vrednosti)- 25x</li>
-                <li>barvna lestvica (lestvica, kjer imajo vse karte isto barvo)- 50x</li>
+                <li>barvna lestvica - 50x</li>
                 <li>royal flush (barvna lestvica od T do A) - 250x</li>
                 Če karte ustrezajo večim kombinacijam, se šteje le tista, ki prinese največ dobička. 
             </p>
