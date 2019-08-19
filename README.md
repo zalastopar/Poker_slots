@@ -1,5 +1,7 @@
 # Poker_slots
 Poker Slots je igra, ki sem jo napisala za projektno nalogo pri UVP.
+
+#Kratek opis igre
 Pri tej igri se zbirajo različne kombinacije petih kart, glede na katere lahko svoj vložek v svoje karte izgubiš ali pa povečaš.
 
 V spletnem umesniku je delo s programom enostavno. Igra se prične s pritiskom na gumb 'ZAČNI', ko se pokaže meni, kjer si lahko preberete natančnejša navodila igre ali položite denar na svoj račun.
