@@ -52,6 +52,7 @@ def preveri():
             return bottle.template('stava0.tpl')
         elif model.preveri_ce_je_dovolj_denarja(igralec, stava):
             igralec.stava = stava
+            igralec.vzemi()
             roka = model.nova_roka(stava)
             igralec.roka = roka
             return bottle.redirect('/nova_roka/')
@@ -76,12 +77,18 @@ def preveri_karte():
 @bottle.get('/menjava/')
 def menjava():
     roka = igralec.roka
-    return bottle.template('zamenjaj.tpl', roka = roka.roka)
+    return bottle.template('odklukaj.tpl', roka = roka.roka) 
+
+#
+#@bottle.get('/menjava/')
+#def menjava():
+#   roka = igralec.roka
+#   return bottle.template('zamenjaj.tpl', roka = roka.roka)
 
 @bottle.post('/zamenjaj/')
 def zamenjaj():
     roka = igralec.roka
-    pozicija = bottle.request.forms['pozicije']
+    pozicija = bottle.request.forms.getall('karta')
     if model.preveri_ce_so_karte_pravilno_vnesene(pozicija):
         roka = roka.izloci_in_dodaj_karte(pozicija)
         return bottle.redirect('/nove_karte/')
@@ -92,13 +99,14 @@ def zamenjaj():
 def nove():
     roka = igralec.roka
     roka.stava = igralec.stava
-    bonus = model.doloci_bonus(roka)
-    model.spremeni_stanje(igralec, roka, bonus)
+    bonus = roka.doloci_bonus()
+    igralec.dodaj(bonus)
+    igralec.stava = 0
     return bottle.template('pokazi_bonus.tpl', roka = roka.roka, bonus = bonus, stanje = igralec.stanje)
 
 @bottle.post('/vprasaj/')
 def vprasaj():
-    if not model.preveri_koliko_denarja(igralec):
+    if not igralec.preveri_koliko_denarja():
         return bottle.template('se_denar.tpl', stanje = igralec.stanje)
     else:
         return bottle.template('ni_denarja.tpl')

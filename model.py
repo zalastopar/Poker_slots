@@ -1,7 +1,6 @@
 import random
 
 
-
 class Karta:
 
     def __init__(self, vrednost, barva):
@@ -24,6 +23,25 @@ def naredi_karto():
     vrednosti = ['2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A']
     return Karta(random.choice(vrednosti), random.choice(barve))
 
+def spremeni_slikice_v_stevilke(sez):
+    for el in sez:
+        if el == 'J':
+            sez = sez[0 : sez.index(el)] + ['11'] + sez[sez.index(el) + 1:]
+        elif el == 'Q':
+            sez = sez[0 : sez.index(el)] + ['12'] + sez[sez.index(el) + 1:]
+        elif el == 'K':
+            sez = sez[0 : sez.index(el)] + ['13'] + sez[sez.index(el) + 1:]
+        elif el == 'A':
+            sez = sez[0 : sez.index(el)] + ['14'] + sez[sez.index(el) + 1:]
+        elif el == 'T':
+            sez = sez[0 : sez.index(el)] + ['10'] + sez[sez.index(el) + 1:]
+    return sez
+
+def razvrsti_po_velikosti(sez):
+    nov_sez = []
+    for el in sez:
+        nov_sez.append(int(el))
+    return sorted(nov_sez)
 
 class Hand:
 
@@ -36,7 +54,6 @@ class Hand:
         self.roka = roka
         self.stava = float(stava)
 
-        
     def __str__(self):
         tekst = ''
         for el in self.roka:
@@ -61,7 +78,6 @@ class Hand:
             sez_barv.append(el.barva)
         return sez_barv
 
-
     def izloci_in_dodaj_karte(self, pozicija):
         roka = self.roka
         pozicija1 = []
@@ -82,6 +98,84 @@ class Hand:
                 self.roka += [karta]
         return self
 
+    def preveri_par(self):
+        sez_vrednosti = self.pridobi_vrednosti()
+        for vr in sez_vrednosti:
+            if sez_vrednosti.count(vr) == 2 and vr in 'JQKA':
+                return True
+        return False
+
+    def preveri_dva_para(self):
+        sez_vrednosti = self.pridobi_vrednosti()
+        st_parov = 0
+        for el in sez_vrednosti:
+            if sez_vrednosti.count(el) == 2:
+                st_parov += 1
+        return (st_parov / 2) == 2
+
+    def preveri_tris(self):
+        sez_vrednosti = self.pridobi_vrednosti()
+        for vr in sez_vrednosti:
+            if sez_vrednosti.count(vr) == 3:
+                return True
+        return False
+
+    def preveri_lestvico(self):
+        sez_vrednosti = self.pridobi_vrednosti()
+        sez_vrednosti = spremeni_slikice_v_stevilke(sez_vrednosti)
+        sez_vrednosti = razvrsti_po_velikosti(sez_vrednosti)
+        i = 0
+        for el in sez_vrednosti:
+            if sez_vrednosti[0] + i != el:
+                return sez_vrednosti == [2, 3, 4, 5, 14]
+            i += 1
+        return True
+
+    def preveri_barvo(self):
+        sez_barv = self.pridobi_barve()
+        return sez_barv.count(sez_barv[0]) == 5 
+
+    def preveri_full_house(self):
+        sez_vrednosti = self.pridobi_vrednosti()
+        for vr in sez_vrednosti:
+            if str(sez_vrednosti.count(vr)) not in '23':
+                return False
+        return True
+
+    def preveri_poker(self):
+        sez_vrednosti = self.pridobi_vrednosti()
+        return sez_vrednosti.count(sez_vrednosti[0]) == 4 
+
+    def preveri_barvno_lestvico(self):
+        return self.preveri_barvo() and self.preveri_lestvico()
+
+    def preveri_royal_flush(self):
+        sez_vrednosti = self.pridobi_vrednosti()
+        return self.preveri_barvo() and 'T' in sez_vrednosti and 'J' in sez_vrednosti and 'Q' in sez_vrednosti and 'K' in sez_vrednosti and 'A' in sez_vrednosti
+    
+    def doloci_bonus(self):
+        stava = self.stava
+        if self.preveri_royal_flush():
+            return stava * 250
+        elif self.preveri_barvno_lestvico():
+            return stava * 50
+        elif self.preveri_poker():
+            return stava * 25
+        elif self.preveri_full_house():
+            return stava * 8
+        elif self.preveri_barvo():
+            return stava * 5
+        elif self.preveri_lestvico():
+            return stava * 4
+        elif self.preveri_tris():
+            return stava * 3
+        elif self.preveri_dva_para():
+            return stava * 2
+        elif self.preveri_par():
+            return stava
+        else:
+            return 0
+    
 class Igralec:
 
     def __init__(self, deposit):
@@ -95,13 +189,23 @@ class Igralec:
     def __repr__(self):
         return 'Vaše stanje je {0} €'.format(self.stanje)
 
+    def preveri_koliko_denarja(self):
+        denar = self.stanje
+        if denar == 0:
+            return True
+        else:
+            return False
+        
+    def vzemi(self):
+        self.stanje -= self.stava
 
-def spremeni_stanje(igralec, hand, bonus):
-    if bonus == 0:
-        igralec.stanje -= hand.stava
-    else:
-        igralec.stanje += bonus
-        igralec.stanje -= hand.stava
+    def dodaj(self, bonus):
+        self.stanje += bonus
+
+
+
+
+
 
 def preveri_ce_je_stevilka(stevilka):
     st_pik = 0
@@ -121,6 +225,7 @@ def preveri_ce_je_stevilka(stevilka):
             else:
                 return False
     return True
+    
 
 def preveri_ce_je_dovolj_denarja(igralec, denar):
     if igralec.stanje - denar >= 0:
@@ -148,108 +253,7 @@ def preveri_ce_so_karte_pravilno_vnesene(karte):
             return False
     return True
 
-    
-def preveri_par(hand):
-    sez_vrednosti = hand.pridobi_vrednosti()
-    for vr in sez_vrednosti:
-        if sez_vrednosti.count(vr) == 2 and vr in 'JQKA':
-            return True
-    return False
-
-
-def preveri_dva_para(hand):
-    sez_vrednosti = hand.pridobi_vrednosti()
-    st_parov = 0
-    for el in sez_vrednosti:
-        if sez_vrednosti.count(el) == 2:
-            st_parov += 1
-    return (st_parov / 2) == 2
-    
-def preveri_tris(hand):
-    sez_vrednosti = hand.pridobi_vrednosti()
-    for vr in sez_vrednosti:
-        if sez_vrednosti.count(vr) == 3:
-            return True
-    return False
-
-def spremeni_slikice_v_stevilke(sez):
-    for el in sez:
-        if el == 'J':
-            sez = sez[0 : sez.index(el)] + ['11'] + sez[sez.index(el) + 1:]
-        elif el == 'Q':
-            sez = sez[0 : sez.index(el)] + ['12'] + sez[sez.index(el) + 1:]
-        elif el == 'K':
-            sez = sez[0 : sez.index(el)] + ['13'] + sez[sez.index(el) + 1:]
-        elif el == 'A':
-            sez = sez[0 : sez.index(el)] + ['14'] + sez[sez.index(el) + 1:]
-        elif el == 'T':
-            sez = sez[0 : sez.index(el)] + ['10'] + sez[sez.index(el) + 1:]
-    return sez
-
-def razvrsti_po_velikosti(sez):
-    nov_sez = []
-    for el in sez:
-        nov_sez.append(int(el))
-    return sorted(nov_sez)
-
-def preveri_lestvico(hand):
-    sez_vrednosti = hand.pridobi_vrednosti()
-    sez_vrednosti = spremeni_slikice_v_stevilke(sez_vrednosti)
-    sez_vrednosti = razvrsti_po_velikosti(sez_vrednosti)
-    i = 0
-    for el in sez_vrednosti:
-        if sez_vrednosti[0] + i != el:
-            return sez_vrednosti == [2, 3, 4, 5, 14]
-        i += 1
-    return True
-
-
-def preveri_barvo(hand):
-    sez_barv = hand.pridobi_barve()
-    return sez_barv.count(sez_barv[0]) == 5 
-
-def preveri_full_house(hand):
-    sez_vrednosti = hand.pridobi_vrednosti()
-    for vr in sez_vrednosti:
-        if str(sez_vrednosti.count(vr)) not in '23':
-            return False
-    return True
-
-def preveri_poker(hand):
-    sez_vrednosti = hand.pridobi_vrednosti()
-    return sez_vrednosti.count(sez_vrednosti[0]) == 4 
-
-def preveri_barvno_lestvico(hand):
-    return preveri_barvo(hand) and preveri_lestvico(hand)
-
-def preveri_royal_flush(hand):
-    sez_vrednosti = hand.pridobi_vrednosti()
-    return preveri_barvo(hand) and 'T' in sez_vrednosti and 'J' in sez_vrednosti and 'Q' in sez_vrednosti and 'K' in sez_vrednosti and 'A' in sez_vrednosti
-    
-
-def doloci_bonus(hand):
-    stava = hand.stava
-    if preveri_royal_flush(hand):
-        return stava * 250
-    elif preveri_barvno_lestvico(hand):
-        return stava * 50
-    elif preveri_poker(hand):
-        return stava * 25
-    elif preveri_full_house(hand):
-        return stava * 8
-    elif preveri_barvo(hand):
-        return stava * 5
-    elif preveri_lestvico(hand):
-        return stava * 4
-    elif preveri_tris(hand):
-        return stava * 3
-    elif preveri_dva_para(hand):
-        return stava * 2
-    elif preveri_par(hand):
-        return stava
-    else:
-        return 0
-
+   
 
 def preveri_ce_je_ena_ali_dva(odgovor):
     if odgovor == '1':
@@ -261,12 +265,6 @@ def preveri_ce_je_ena_ali_dva(odgovor):
     else:
         return 'narobe'
     
-def preveri_koliko_denarja(igralec):
-    denar = igralec.stanje
-    if denar == 0:
-        return True
-    else:
-        return False
 
 
 

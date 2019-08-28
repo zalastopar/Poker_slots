@@ -1,6 +1,6 @@
 %rebase('osnova_karte.tpl')
 
-<form action="/zamenjaj/ "method="post">
+<form action="/zamenjaj/" method="post">
     <h1>Vaše karte so:</h1>
 %for el in roka: 
         <img src="https://deckofcardsapi.com/static/img/{{str(el).replace('T','0')}}.png"/>

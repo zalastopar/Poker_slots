@@ -27,7 +27,8 @@ def stava(igralec):
             return ali_zelite_nadaljevati_igro(igralec)
         elif model.preveri_ce_je_dovolj_denarja(igralec, denar):
             time.sleep(0.7)
-            igralec.stanje = denar
+            igralec.stava = denar
+            igralec.vzemi()
             roka = model.nova_roka(denar)
             return roka
         else:
@@ -107,11 +108,11 @@ def igra(igralec):
     roka = stava(igralec)
     print(roka)
     ali_zelite_menjati_karte(roka)
-    bonus = model.doloci_bonus(roka)
+    bonus = roka.doloci_bonus()
     print('Vaše karte so vam prinesle ' + str(bonus) + ' €')
-    model.spremeni_stanje(igralec, roka, bonus)
+    igralec.dodaj(bonus)
     print(igralec)
-    if model.preveri_koliko_denarja(igralec):
+    if igralec.preveri_koliko_denarja():
         odgovor = zmanjkalo_denarja()
         return odgovor
     else:
@@ -148,7 +149,7 @@ def intro():
     print('Porabite čim več denarja, ker ga dobim jaz.')
     zacetni_meni()
     igralec = polog_denarja()
-    if model.preveri_koliko_denarja(igralec):
+    if igralec.preveri_koliko_denarja():
         zmanjkalo_denarja()
         return False
     else:
